@@ -18,7 +18,7 @@ cur_path = os.getcwd()
 #Retrieving the images and their labels 
 for i in range(classes):
     path = os.path.join(cur_path,'train',str(i))
-    images = os.listdir(path) # https://www.tutorialspoint.com/python/os_listdir.htm
+    images = os.listdir(path)
 
 
     # resize every image to 30x30 pixels and store it in data list
@@ -28,7 +28,6 @@ for i in range(classes):
             image = Image.open(path + '\\'+ a)
             image = image.resize((30,30))
             image = np.array(image)
-            #sim = Image.fromarray(image)
             data.append(image)
             labels.append(i)
         except:
@@ -62,6 +61,18 @@ model.add(Flatten())
 model.add(Dense(256, activation='relu'))
 model.add(Dropout(rate=0.5))
 model.add(Dense(43, activation='softmax'))
+
+#model = Sequential()
+#model.add(Conv2D(60, (5, 5), input_shape=X_train.shape[1:], activation='relu'))
+#model.add(Conv2D(60, (5, 5), activation='relu'))
+#model.add(MaxPool2D(pool_size=(2, 2)))
+#model.add(Conv2D(30, (3, 3), activation='relu'))
+#model.add(Conv2D(30, (3, 3), activation='relu'))
+#model.add(MaxPool2D(pool_size=(2, 2)))
+#model.add(Flatten())
+#model.add(Dense(500, activation='relu'))
+#model.add(Dropout(0.5))
+#model.add(Dense(43, activation='softmax'))
 
 #Compilation of the model
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
@@ -104,7 +115,7 @@ for img in imgs:
     image = image.resize((30,30))
     data.append(np.array(image))
 
-X_test=np.array(data)
+X_test = np.array(data)
 
 pred = model.predict_classes(X_test)
 
